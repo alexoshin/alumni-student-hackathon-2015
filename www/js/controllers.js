@@ -1,10 +1,13 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, gmApiService) {
+.controller('DashCtrl', function($scope, gmApiService, geoService) {
     gmApiService.authenticate();
+    geoService.getlocation(function(long, lat) {
+      console.log("position", long + "," + lat);
+    })
   })
 
-.controller('ChatsCtrl', function($scope, Chats, $ionicPlatform, $cordovaGeolocation) {
+.controller('ChatsCtrl', function($scope, Chats, $ionicPlatform, $cordovaGeolocation, mgfService) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -24,6 +27,7 @@ angular.module('starter.controllers', [])
       info.then(function (position) {
         console.log('position:', position);
         console.log(position.coords.latitude, position.coords.longitude);
+        mgfService.search(position.coords.latitude, position.coords.longitude);
       });
     });
 })
