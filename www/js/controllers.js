@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-  .controller('DashCtrl', function ($scope, $ionicPlatform, gmApiService, geoService, $cordovaGeolocation, mgfService, $interval) {
+  .controller('DashCtrl', function ($scope, $ionicPlatform, gmApiService, geoService, $cordovaGeolocation, mgfService, $interval, $timeout) {
     $scope.stations = {};
     $scope.openInMap = function(station){
       geoService.openInMap({
@@ -27,6 +27,13 @@ angular.module('starter.controllers', [])
     }, function (error) {
       console.error(error);
     });
+
+    $scope.refresh = function () {
+      $timeout(function () {
+        // fake it for now
+        $scope.$broadcast('scroll.refreshComplete');
+      }, 2000);
+    };
   })
 
   .controller('ChatsCtrl', function ($scope, Chats, $ionicPlatform, $cordovaGeolocation, mgfService, geoService, $interval) {
