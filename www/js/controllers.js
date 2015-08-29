@@ -13,8 +13,11 @@ angular.module('starter.controllers').controller('DashCtrl', function ($scope, $
         type: 'address'
       });
     };
+
     $ionicPlatform.ready(function () {
+      $scope.refreshInterval = settingsService.getRefresh();
       var getServices = function () {
+        console.log($scope.refreshInterval);
         geoService.getLocation().then(function (coordinates) {
           mgfService.search(coordinates.latitude, coordinates.longitude).then(function (results) {
             console.log(results.stations);
@@ -22,15 +25,11 @@ angular.module('starter.controllers').controller('DashCtrl', function ($scope, $
 
           });
         });
+        console.log($scope.refreshInterval);
+        $scope.refreshInterval = settingsService.getRefresh();
       };
       getServices();
-      $interval(getServices, settingsService.getRefresh());
-    });
-
-    $ionicPlatform.ready(function() {
-      $interval(function () {
-
-      }, 1000 * 60);
+      $interval(getServices, $scope.refreshInterval);
     });
 
     geoService.getLocation().then(function (coordinates) {
@@ -73,14 +72,24 @@ angular.module('starter.controllers').controller('DashCtrl', function ($scope, $
 
   $scope.snooze = function () {
     $scope.cards.takeABreak = false;
+    $timeout(function () {
+      $scope.cards.takeABreak = true;
+    }, 10000);
   };
 
   $scope.takeBreak = function () {
     $scope.cards.takeABreak = false;
+    $timeout(function () {
+      $scope.cards.takeABreak = true;
+    }, 1000 * 60);
   };
 
 });
 
-angular.module('starter.controllers').controller('SettingsCtrl', function ($scope) {
-
+angular.module('starter.controllers').controller('SettingsCtrl', function ($scope, settingsService) {
+  $scope.refreshRates = settingsService.getRefreshRates();
+  $scope.updateRefreshRate = function (newRate) {
+    settingsService.setRefresh(newRate);
+    console.log(newRate);
+  };
 });

@@ -5,11 +5,7 @@
           <div class="input-label">
             Refresh Interval
           </div>
-          <select>
-            <option>1s</option>
-            <option selected>5s</option>
-            <option>10s</option>
-            <option>20s</option>
+          <select ng-change="updateRefreshRate(refreshRate)" ng-options="rate for rate in refreshRates" ng-model="refreshRate">
           </select>
         </label>
     </ion-list>

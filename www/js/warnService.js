@@ -2,10 +2,11 @@
  * Created by drew on 8/29/15.
  */
 
-angular.module('starter.services').factory('warnService', function ($q, $timeout) {
+angular.module('starter.services').factory('warnService', function ($q, $timeout, $interval, settingsService) {
 
   var threshold = 1000 * 60;
   var warn = 1000 * 15;
+
 
   return {
     warn : function(){
@@ -21,6 +22,12 @@ angular.module('starter.services').factory('warnService', function ($q, $timeout
           resolve();
         }, threshold);
       })
+    },
+    snooze: function () {
+
+    },
+    takeBreak: function () {
+
     }
   }
 });
