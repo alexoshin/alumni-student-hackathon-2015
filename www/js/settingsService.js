@@ -24,6 +24,7 @@ angular.module("starter.services").factory("settingsService", function() {
     startTrip : function() {
       timeStart = new Date().getTime();
       timeEnd = 0;
+      console.log("swag");
     },
     endTrip : function() {
       timeEnd = new Date().getTime();
@@ -34,6 +35,7 @@ angular.module("starter.services").factory("settingsService", function() {
       } else {
         return new Date().getTime() - timeStart;
       }
+
     }
   }
 });

@@ -5,6 +5,11 @@
       on-refresh="refresh()">
     </ion-refresher>
 
+
+    <button class="button button-block button-balanced" ng-click="startTrip()" ng-show="!tripStarted">
+      Start Trip
+    </button>
+
     <div class="list card card--red" ng-show="cards.takeABreak">
       <div class="item item-divider"><i class="ion ion-alert-circled"></i> Take a 30 min break</div>
       <div class="item item-body">
@@ -20,6 +25,7 @@
       </div>
     </div>
 
+
     <div class="list card card--no-padding">
       <div class="item item-divider">Gas stations nearby</div>
       <div class="item item-body">
@@ -31,12 +37,18 @@
               <span class="badge badge-dark">
                 ${{station.reg_price}}&nbsp;&nbsp; | &nbsp;
                 {{station.distance}}
+
               </span>
+
 
             </ion-item>
           </ion-list>
         </div>
       </div>
     </div>
+
+    <button class ="button button-block button-assertive" ng-click="endTrip()" ng-show="tripStarted">
+      Stop Trip ({{tripElapsed}}s)
+    </button>
   </ion-content>
 </ion-view>

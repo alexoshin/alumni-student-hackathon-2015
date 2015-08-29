@@ -7,6 +7,9 @@ angular.module('starter.controllers').controller('DashCtrl', function ($scope, $
       takeABreak: false
     };
 
+  $scope.tripStarted = false;
+  $scope.tripElapsed = 0;
+
     $scope.openInMap = function(station){
       geoService.openInMap({
         address: station.address + ' ' + station.city + ' ' + station.region + ' ' + station.station,
@@ -82,6 +85,25 @@ angular.module('starter.controllers').controller('DashCtrl', function ($scope, $
     $timeout(function () {
       $scope.cards.takeABreak = true;
     }, 1000 * 60);
+  };
+
+  var tripInterval;
+
+  $scope.startTrip=function(){
+    settingsService.startTrip();
+    $scope.tripStarted = true;
+    tripInterval = $interval(function () {
+      $scope.tripElapsed += 1;
+    }, 1000);
+  };
+  $scope.endTrip=function(){
+    //settingService.endTrip();
+    $scope.tripStarted = false;
+    $scope.tripElapsed = 0;
+    $interval.cancel(tripInterval);
+  };
+  $scope.tripTime=function(){
+    settingService.tripTime();
   };
 
 });
