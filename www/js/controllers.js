@@ -27,12 +27,6 @@ angular.module('starter.controllers').controller('DashCtrl', function ($scope, $
       $interval(getServices, settingsService.getRefresh());
     });
 
-    $ionicPlatform.ready(function() {
-      $interval(function () {
-
-      }, 1000 * 60);
-    });
-
     geoService.getLocation().then(function (coordinates) {
       console.log('coordinates:', coordinates);
     }, function (error) {
@@ -46,8 +40,7 @@ angular.module('starter.controllers').controller('DashCtrl', function ($scope, $
       }, 2000);
     };
 
-    $ionicPlatform.ready(function () {
-
+    function initiateTimer() {
       warnService.warn().then(
         function () {
           $scope.scheduleSingleNotification = function () {
@@ -69,7 +62,9 @@ angular.module('starter.controllers').controller('DashCtrl', function ($scope, $
             });
           }
         });
-    });
+    }
+
+    $ionicPlatform.ready(initiateTimer());
   });
 
 angular.module('starter.controllers').controller('SettingsCtrl', function ($scope) {
