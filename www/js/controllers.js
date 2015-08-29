@@ -27,7 +27,11 @@ angular.module('starter.controllers', [])
       info.then(function (position) {
         console.log('position:', position);
         console.log(position.coords.latitude, position.coords.longitude);
-        mgfService.search(position.coords.latitude, position.coords.longitude);
+        mgfService.search(position.coords.latitude, position.coords.longitude).then(function (results) {
+          console.info(results.stations);
+        }, function (error) {
+          console.error('SOMETHING BAD HAPPENED OMG', error);
+        });
       });
     });
 })
