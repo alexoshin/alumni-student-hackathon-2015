@@ -1,18 +1,20 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $ionicPlatform, gmApiService, geoService, $cordovaGeolocation, mgfService) {
+  .controller('DashCtrl', function ($scope, $ionicPlatform, gmApiService, geoService, $cordovaGeolocation, mgfService, $interval) {
     //gmApiService.authenticate();
     $scope.stations = {};
 
-    $ionicPlatform.ready($interval(function() {
-      geoService.getLocation().then(function (coordinates) {
-        mgfService.search(coordinates.latitude, coordinates.longitude).then(function (results) {
-          console.log(results.stations);
-          $scope.stations = results.stations;
+    $ionicPlatform.ready(function () {
+      $interval(function () {
+        geoService.getLocation().then(function (coordinates) {
+          mgfService.search(coordinates.latitude, coordinates.longitude).then(function (results) {
+            console.log(results.stations);
+            $scope.stations = results.stations;
 
+          });
         });
-      });
-    }, 1000));
+      }, 1000)
+    });
 
     geoService.getLocation().then(function (coordinates) {
       console.log('coordinates:', coordinates);
@@ -21,19 +23,19 @@ angular.module('starter.controllers', [])
     });
   })
 
-.controller('ChatsCtrl', function($scope, Chats, $ionicPlatform, $cordovaGeolocation, mgfService, geoService, $interval) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+  .controller('ChatsCtrl', function ($scope, Chats, $ionicPlatform, $cordovaGeolocation, mgfService, geoService, $interval) {
+    // With the new view caching in Ionic, Controllers are only called
+    // when they are recreated or on app start, instead of every page change.
+    // To listen for when this page is active (for example, to refresh data),
+    // listen for the $ionicView.enter event:
+    //
+    //$scope.$on('$ionicView.enter', function(e) {
+    //});
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+    $scope.chats = Chats.all();
+    $scope.remove = function (chat) {
+      Chats.remove(chat);
+    };
 
     function update() {
       geoService.getLocation().then(function (coordinates) {
@@ -50,14 +52,14 @@ angular.module('starter.controllers', [])
     }
 
     $ionicPlatform.ready($interval(update, 1000));
-})
+  })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
+  .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
+    $scope.chat = Chats.get($stateParams.chatId);
+  })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});
+  .controller('AccountCtrl', function ($scope) {
+    $scope.settings = {
+      enableFriends: true
+    };
+  });
