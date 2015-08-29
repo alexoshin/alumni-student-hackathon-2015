@@ -8,7 +8,15 @@
     <div class="list card card--red" ng-show="cards.takeABreak">
       <div class="item item-divider"><i class="ion ion-alert-circled"></i> Take a 30 min break</div>
       <div class="item item-body">
-        It's recommended that you take a break after driving <strong>8 or more hours</strong>.
+        It's recommended that you take a break after driving <strong>8 or more hours</strong>.<br />
+        <div class="card--buttons row">
+          <button class="button button-small button-stable col" ng-click="takeBreak()">
+            take a break
+          </button>
+          <button class="button button-small button-light col" ng-click="snoozeBreak()">
+            snooze
+          </button>
+        </div>
       </div>
     </div>
 
