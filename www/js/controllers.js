@@ -1,11 +1,15 @@
 angular.module('starter.controllers', [])
 
   .controller('DashCtrl', function ($scope, $ionicPlatform, gmApiService, geoService, $cordovaGeolocation, mgfService, $interval) {
-    //gmApiService.authenticate();
     $scope.stations = {};
-
+    $scope.openInMap = function(station){
+      geoService.openInMap({
+        address: station.address + ' ' + station.city + ' ' + station.region + ' ' + station.station,
+        type: 'address'
+      });
+    };
     $ionicPlatform.ready(function () {
-      $interval(function () {
+      var getServices = function () {
         geoService.getLocation().then(function (coordinates) {
           mgfService.search(coordinates.latitude, coordinates.longitude).then(function (results) {
             console.log(results.stations);
@@ -13,7 +17,9 @@ angular.module('starter.controllers', [])
 
           });
         });
-      }, 1000)
+      };
+      getServices();
+      $interval(getServices, 10000);
     });
 
     geoService.getLocation().then(function (coordinates) {
