@@ -1,16 +1,15 @@
 <ion-view view-title="Backseat Driver">
   <ion-content class="padding">
-    <div class="list card">
+
+    <div class="list card card--no-padding">
+
       <div class="item item-divider">Nearby</div>
       <div class="item item-body">
         <div>
           <ion-list>
             <ion-item ng-click="openInMaps(station.lat, station.lng)" ng-repeat="station in stations | limitTo: 5">
             {{station.station}}
-              <!--<span class="badge badge-balanced">
-                {{station.reg_price}}
-              </span>
-              -->
+              
               <span class="badge badge-stable">
                 ${{station.reg_price}}&nbsp;&nbsp;|&nbsp;
                 {{station.distance}}
@@ -18,7 +17,6 @@
 
             </ion-item>
           </ion-list>
-
         </div>
       </div>
     </div>
