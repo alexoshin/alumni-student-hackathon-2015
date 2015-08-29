@@ -9,7 +9,7 @@ angular.module('starter.controllers', [])
       });
     };
     $ionicPlatform.ready(function () {
-      $interval(function () {
+      var getServices = function () {
         geoService.getLocation().then(function (coordinates) {
           mgfService.search(coordinates.latitude, coordinates.longitude).then(function (results) {
             console.log(results.stations);
@@ -17,7 +17,9 @@ angular.module('starter.controllers', [])
 
           });
         });
-      }, 1000)
+      };
+      getServices();
+      $interval(getServices, 10000);
     });
 
     geoService.getLocation().then(function (coordinates) {
