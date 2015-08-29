@@ -20,13 +20,14 @@
       <div class="item item-divider">Nearby</div>
       <div class="item item-body">
         <div>
-          Gas stations.
-          Food.
-
-          <ul>
-            <li ng-repeat="station in stations | limitTo: 2">{{station.station}}</li>
-          </ul>
-
+          <ion-list>
+            <ion-item ng-click="openInMaps(station.lat, station.lng)" ng-repeat="station in stations | limitTo: 5">
+            {{station.station}}
+              <span class="badge badge-positive">
+                {{station.distance}}
+              </span>
+            </ion-item>
+          </ion-list>
 
         </div>
       </div>
