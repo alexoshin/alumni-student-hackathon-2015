@@ -9,7 +9,7 @@ angular.module('starter.controllers', [])
     });
   })
 
-.controller('ChatsCtrl', function($scope, Chats, $ionicPlatform, $cordovaGeolocation, mgfService) {
+.controller('ChatsCtrl', function($scope, Chats, $ionicPlatform, $cordovaGeolocation, mgfService, geoService) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -24,17 +24,17 @@ angular.module('starter.controllers', [])
   };
 
     $ionicPlatform.ready(function () {
-      console.log('HELLO THERE');
-      var info = $cordovaGeolocation.getCurrentPosition();
-      info.then(function (position) {
-        console.log('position:', position);
-        console.log(position.coords.latitude, position.coords.longitude);
-        mgfService.search(position.coords.latitude, position.coords.longitude).then(function (results) {
-          console.info(results.stations);
-        }, function (error) {
-          console.error('SOMETHING BAD HAPPENED OMG', error);
+      geoService.getLocation().then(function (coordinates) {
+        console.info('got the coordinates', coordinates);
+        console.info('searching for gas stations near you...');
+        mgfService.search(coordinates.latitude, coordinates.longitude).then(function (results) {
+          console.log('stations found:', results.stations.length);
+          console.log(results.stations);
+          console.log('opening first result', results.stations[0]);
+          geoService.openInMap(coordinates);
         });
       });
+
     });
 })
 

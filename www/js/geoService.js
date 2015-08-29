@@ -11,6 +11,10 @@ angular.module('starter.services').factory('geoService', function ($http, $cordo
           reject(error);
         });
       });
+    },
+    openInMap: function (coordinates) {
+      var mapUrl = 'http://maps.google.com/maps?z=12&t=m&q=loc:'+coordinates.latitude+'+'+coordinates.longitude;
+      window.open(mapUrl);
     }
-  }
-})
+  };
+});
