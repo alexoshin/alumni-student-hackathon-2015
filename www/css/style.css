@@ -1,1 +1,5 @@
 /* Empty. Add your own CSS if you like */
+
+.card--no-padding .item-body {
+  padding: 0 !important;
+}
