@@ -17,3 +17,12 @@
 .card--red .item-body {
   border: 1px solid #ef473a;
 }
+
+.card--buttons {
+  margin: -5px;
+  margin-top: 10px;
+}
+
+.card--buttons button:first-child {
+  margin-right: 5px;
+}
