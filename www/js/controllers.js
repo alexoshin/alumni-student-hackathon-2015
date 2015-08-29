@@ -1,7 +1,16 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, gmApiService, geoService) {
+.controller('DashCtrl', function($scope, gmApiService, geoService, $cordovaGeolocation, mgfService) {
     gmApiService.authenticate();
+    $scope.stations = {};
+    geoService.getLocation().then(function (coordinates) {
+      mgfService.search(coordinates.latitude, coordinates.longitude).then(function (results) {
+        console.log(results.stations);
+        $scope.stations = results.stations;
+
+      });
+    });
+
     geoService.getLocation().then(function (coordinates) {
       console.log('coordinates:', coordinates);
     }, function (error) {
