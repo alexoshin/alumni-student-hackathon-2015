@@ -1,8 +1,12 @@
 angular.module('starter.controllers', [])
 
 
-.controller('DashCtrl', function ($scope, $ionicPlatform, gmApiService, geoService, warnService, mgfService, $interval, $cordovaLocalNotification) {
+.controller('DashCtrl', function ($scope, $ionicPlatform, gmApiService, geoService, warnService, mgfService, $interval, $timeout, $cordovaLocalNotification) {
     $scope.stations = {};
+    $scope.cards = {
+      takeABreak: false
+    };
+
     $scope.openInMap = function(station){
       geoService.openInMap({
         address: station.address + ' ' + station.city + ' ' + station.region + ' ' + station.station,
@@ -45,13 +49,16 @@ angular.module('starter.controllers', [])
     $ionicPlatform.ready(function () {
 
       warnService.warn().then(
-        $scope.scheduleSingleNotification = function () {
-          $cordovaLocalNotification.schedule({
-            id: new Date().getTime(),
-            title: 'Test Notification',
-            text: 'Stop Driving Soon',
-          });
-        })
+        function () {
+          $scope.cards.takeABreak = true;
+          $scope.scheduleSingleNotification = function () {
+            $cordovaLocalNotification.schedule({
+              id: new Date().getTime(),
+              title: 'Test Notification',
+              text: 'Stop Driving Soon'
+            });
+          };
+        });
     });
   });
 

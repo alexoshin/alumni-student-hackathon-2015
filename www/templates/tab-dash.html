@@ -5,9 +5,15 @@
       on-refresh="refresh()">
     </ion-refresher>
 
-    <div class="list card card--no-padding">
+    <div class="list card card--red" ng-show="cards.takeABreak">
+      <div class="item item-divider"><i class="ion ion-alert-circled"></i> Take a 30 min break</div>
+      <div class="item item-body">
+        It's recommended that you take a break after driving <strong>8 or more hours</strong>.
+      </div>
+    </div>
 
-      <div class="item item-divider">Nearby Stations</div>
+    <div class="list card card--no-padding">
+      <div class="item item-divider">Gas stations nearby</div>
       <div class="item item-body">
         <div>
           <ion-list>

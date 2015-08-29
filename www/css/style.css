@@ -3,3 +3,17 @@
 .card--no-padding .item-body {
   padding: 0 !important;
 }
+
+.card--red {
+  border-bottom: 1px solid #ef473a;
+}
+
+.card--red .item-divider {
+  background-color: #ef473a;
+  color: white;
+}
+
+
+.card--red .item-body {
+  border: 1px solid #ef473a;
+}
