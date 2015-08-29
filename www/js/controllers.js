@@ -52,23 +52,27 @@ angular.module('starter.controllers').controller('DashCtrl', function ($scope, $
 
       warnService.warn().then(
         function () {
-          $scope.scheduleSingleNotification = function () {
-            $cordovaLocalNotification.schedule({
-              id: new Date().getTime(),
-              title: 'Almost Time For a Break',
-              text: 'Start considering places to pull off and take a break',
-            });
+          if ($scope.tripStarted) {
+            $scope.scheduleSingleNotification = function () {
+              $cordovaLocalNotification.schedule({
+                id: new Date().getTime(),
+                title: 'Almost Time For a Break',
+                text: 'Start considering places to pull off and take a break',
+              });
+            }
           }
         });
       warnService.enforce().then(
         function() {
-          $scope.cards.takeABreak = true;
-          $scope.scheduleSingleNotification = function () {
-            $cordovaLocalNotification.schedule({
-              id: new Date().getTime(),
-              title: 'Take a Break Now',
-              text: 'For your safety and others, please take a break from driving',
-            });
+          if ($scope.tripStarted) {
+            $scope.cards.takeABreak = true;
+            $scope.scheduleSingleNotification = function () {
+              $cordovaLocalNotification.schedule({
+                id: new Date().getTime(),
+                title: 'Take a Break Now',
+                text: 'For your safety and others, please take a break from driving',
+              });
+            }
           }
         });
     });
