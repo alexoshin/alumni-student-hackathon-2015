@@ -24,7 +24,7 @@
           Food.
 
           <ul>
-            <li ng-repeat="station in stations">{{station.station}}</li>
+            <li ng-repeat="station in stations | limitTo: 2">{{station.station}}</li>
           </ul>
 
 
