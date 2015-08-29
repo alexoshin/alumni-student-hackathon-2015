@@ -4,6 +4,8 @@
 
 angular.module("starter.services").factory("settingsService", function() {
   var refreshRate = 10000;
+  var timeStart = 0;
+  var timeEnd = 0;
 
   return {
     setRefresh : function(refresh) {
@@ -11,6 +13,20 @@ angular.module("starter.services").factory("settingsService", function() {
     },
     getRefresh : function() {
       return refreshRate;
+    },
+    startTrip : function() {
+      timeStart = new Date().getTime();
+      timeEnd = 0;
+    },
+    endTrip : function() {
+      timeEnd = new Date().getTime();
+    },
+    tripTime : function() {
+      if (timeEnd) {
+        return timeEnd - timeStart;
+      } else {
+        return new Date().getTime() - timeStart;
+      }
     }
   }
 });
