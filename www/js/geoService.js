@@ -12,8 +12,17 @@ angular.module('starter.services').factory('geoService', function ($http, $cordo
         });
       });
     },
-    openInMap: function (coordinates) {
-      var mapUrl = 'http://maps.google.com/maps?z=12&t=m&q=loc:'+coordinates.latitude+'+'+coordinates.longitude;
+    openInMap: function (searchObj) {
+      var mapUrl = '';
+
+      if (searchObj.type === 'coordinate') {
+        mapUrl = 'http://maps.google.com/maps?z=12&t=m&q=loc:'+coordinates.latitude+'+'+coordinates.longitude;
+      }
+
+      if (searchObj.type === 'address') {
+        mapUrl = 'http://maps.google.com/maps?z=12&t=m&q=' + searchObj.address;
+      }
+
       window.open(mapUrl);
     }
   };

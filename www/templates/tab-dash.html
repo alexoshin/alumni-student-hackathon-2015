@@ -7,11 +7,11 @@
       <div class="item item-body">
         <div>
           <ion-list>
-            <ion-item ng-click="openInMaps(station.lat, station.lng)" ng-repeat="station in stations | limitTo: 5">
+            <ion-item ng-click="openInMap(station)" ng-repeat="station in stations | limitTo: 5">
             {{station.station}}
-              
+
               <span class="badge badge-stable">
-                ${{station.reg_price}}&nbsp;&nbsp;|&nbsp;
+                ${{station.reg_price}}&nbsp;&nbsp; | &nbsp;
                 {{station.distance}}
               </span>
 

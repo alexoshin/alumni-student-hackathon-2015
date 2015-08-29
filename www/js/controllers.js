@@ -1,13 +1,11 @@
 angular.module('starter.controllers', [])
 
   .controller('DashCtrl', function ($scope, $ionicPlatform, gmApiService, geoService, $cordovaGeolocation, mgfService, $interval) {
-    //gmApiService.authenticate();
     $scope.stations = {};
-    $scope.openInMaps = function(lat, long){
-      console.log(lat, long);
+    $scope.openInMap = function(station){
       geoService.openInMap({
-        latitude: lat,
-        longitude: long
+        address: station.address + ' ' + station.city + ' ' + station.region + ' ' + station.station,
+        type: 'address'
       });
     };
     $ionicPlatform.ready(function () {
