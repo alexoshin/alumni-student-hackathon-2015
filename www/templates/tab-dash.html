@@ -1,9 +1,13 @@
 <ion-view view-title="Backseat Driver">
   <ion-content class="padding">
+    <ion-refresher
+      pulling-text="Pull to refresh"
+      on-refresh="refresh()">
+    </ion-refresher>
 
     <div class="list card card--no-padding">
 
-      <div class="item item-divider">Nearby</div>
+      <div class="item item-divider">Nearby Stations</div>
       <div class="item item-body">
         <div>
           <ion-list>
