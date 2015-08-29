@@ -4,7 +4,7 @@
 angular.module('starter.services').factory('gmApiService', function ($http) {
   return {
     authenticate: function () {
-      alert('do authentication here');
+      console.info('do authentication here... maybe?');
     }
   };
 });

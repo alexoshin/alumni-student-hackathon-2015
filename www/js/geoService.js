@@ -1,12 +1,16 @@
 /**
  * Created by drew on 8/29/15.
  */
-angular.module('starter.services').factory('geoService', function ($http, $cordovaGeolocation) {
+angular.module('starter.services').factory('geoService', function ($http, $cordovaGeolocation, $q) {
   return {
-    getlocation: function (callback) {
-      $cordovaGeolocation.getCurrentPosition().then(function(position) {
-        callback(position.coords.latitude, position.coords.longitude);
-      })
+    getLocation: function () {
+      return $q(function (resolve, reject) {
+        $cordovaGeolocation.getCurrentPosition().then(function(response) {
+          resolve(response.coords);
+        }, function (error) {
+          reject(error);
+        });
+      });
     }
   }
 })

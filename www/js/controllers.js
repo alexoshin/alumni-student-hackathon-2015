@@ -2,9 +2,11 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, gmApiService, geoService) {
     gmApiService.authenticate();
-    geoService.getlocation(function(long, lat) {
-      console.log("position", long + "," + lat);
-    })
+    geoService.getLocation().then(function (coordinates) {
+      console.log('coordinates:', coordinates);
+    }, function (error) {
+      console.error(error);
+    });
   })
 
 .controller('ChatsCtrl', function($scope, Chats, $ionicPlatform, $cordovaGeolocation, mgfService) {
