@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-  .controller('DashCtrl', function ($scope, $ionicPlatform, gmApiService, geoService, $cordovaGeolocation, mgfService, $interval) {
+.controller('DashCtrl', function ($scope, $ionicPlatform, gmApiService, geoService, warnService, mgfService, $interval, $cordovaLocalNotification) {
     $scope.stations = {};
     $scope.openInMap = function(station){
       geoService.openInMap({
@@ -22,13 +22,32 @@ angular.module('starter.controllers', [])
       $interval(getServices, 10000);
     });
 
+    $ionicPlatform.ready(function() {
+      $interval(function () {
+
+      }, 1000 * 60);
+    });
+
     geoService.getLocation().then(function (coordinates) {
       console.log('coordinates:', coordinates);
     }, function (error) {
       console.error(error);
     });
-  })
 
+    $ionicPlatform.ready(function () {
+
+      warnService.warn().then(
+        $scope.scheduleSingleNotification = function () {
+          $cordovaLocalNotification.schedule({
+            id: new Date().getTime(),
+            title: 'Test Notification',
+            text: 'Stop Driving Soon',
+          });
+        })
+    });
+  });
+
+  /*
   .controller('ChatsCtrl', function ($scope, Chats, $ionicPlatform, $cordovaGeolocation, mgfService, geoService, $interval) {
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -69,3 +88,4 @@ angular.module('starter.controllers', [])
       enableFriends: true
     };
   });
+  */

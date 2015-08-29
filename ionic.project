@@ -1,4 +1,7 @@
 {
   "name": "alumni-student-hackathon",
-  "app_id": ""
+  "app_id": "",
+  "xwalk_hosts": [
+    "http://api.mygasfeed.com/"
+  ]
 }
