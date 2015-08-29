@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 
-.controller('DashCtrl', function ($scope, $ionicPlatform, gmApiService, geoService, warnService, mgfService, $interval, $timeout, $cordovaLocalNotification) {
+.controller('DashCtrl', function ($scope, $ionicPlatform, gmApiService, geoService, warnService, mgfService, settingsService, $interval, $timeout, $cordovaLocalNotification) {
     $scope.stations = {};
     $scope.cards = {
       takeABreak: false
@@ -24,7 +24,7 @@ angular.module('starter.controllers', [])
         });
       };
       getServices();
-      $interval(getServices, 10000);
+      $interval(getServices, settingsService.getRefresh());
     });
 
     $ionicPlatform.ready(function() {
